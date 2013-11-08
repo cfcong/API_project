@@ -15,35 +15,45 @@ $(function() {
 				//console.log(json);
 				//var results = json["RESULTS"];
 				$.each(json.RESULTS, function (i, outcome) {
-				//for(var i = 0; i < results.length; i++){
-					//var city = results[i];
-					//var li = $('<li></li>');
-					//li.attr('cityInfo', city['l']);
-					//li.append('<div>' + city['name'] + '</div>');
-					var li = $('<li>' + outcome.name + '<li>');
+				/*for(var i = 0; i < results.length; i++){
+					var city = results[i];
+					var li = $('<li></li>');
+					li.attr('cityInfo', city['l']);
+					li.append('<div>' + city['name'] + '</div>');*/
+					var li = $('<li>' + outcome.name + '</li>');
 					li.attr('cityInfo', outcome.l);
 					$('#entrylist').append(li);
-					console.log(outcome);
+					//console.log(outcome);
 					$('#searchBar').val(' ');
-					//$('<li>' + city['name'] + '</li>').click(function(){
+					/*$('<li>' + city['name'] + '</li>').click(function(){
 						//val urlDetail = 'http://api.wunderground.com/api/55f52aa00e54da0f/forecast/q/' ;
 						//$.getJSON(urlDetail + city['zmw'] + '.json',
 							//function(json){
 
 							//}	
 						//)
-					//});
+					});*/
 				});
 			}
 		)
 		$('ul#entrylist').on('click','li', function() {
 			var cityWeather = $(this).attr('cityInfo');
-			$.getJSON(cityUrl + cityWeather + '.json?cb=?',
+			/*$.getJSON(cityUrl + cityWeather + '.json?cb=?',
 
 				function(json){
 					console.log(json);
 				}
-			)
+			)*/
+		    $.ajax({
+		    	url: cityUrl + cityWeather + '.json',
+		    	dataType: 'jsonp',
+		    	success: function(json) {
+		    		console.log(json);
+		    		$('#entrylist').hide();
+		    		var x = json["forecast"]["simpleforecast"]["forecastday"];
+		    		
+		    	}
+		    });
 		});				
 	});
 });		
