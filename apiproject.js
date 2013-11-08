@@ -51,7 +51,10 @@ $(function() {
 		    		console.log(json);
 		    		$('#entrylist').hide();
 		    		var x = json["forecast"]["simpleforecast"]["forecastday"];
-		    		
+		    		$.each(var x, function(i){
+		    			
+		    		}
+		    		}
 		    	}
 		    });
 		});				
