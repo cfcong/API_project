@@ -49,12 +49,29 @@ $(function() {
 		    	dataType: 'jsonp',
 		    	success: function(json) {
 		    		console.log(json);
+		    		
 		    		$('#entrylist').hide();
-		    		var x = json["forecast"]["simpleforecast"]["forecastday"];
-		    		$.each(var x, function(i){
+		    		var cityData = json["forecast"]["simpleforecast"]["forecastday"];
+		    		$.each(cityData, function(i, element){
 		    			
-		    		}
-		    		}
+		    			var weekday = element.date.weekday;
+		    			var month = element.date.monthname_short;
+		    			var day = element.date.day;
+		    			var highTemp = element.high.celsius;
+		    			var lowTemp = element.low.celsius;
+		    			var conditions = element.conditions;
+
+		    			var tempBox = $('<div> Temperature: ' + highTemp + '|' + lowTemp + ' degrees</div>');
+		    			var conditionsBox = $('<div>' + conditions + '</div>');
+		    			var dateBox = $('<div>' + weekday + ', ' + month + ' ' + day + '</div>');
+
+		    			var container = $('<div></div>');
+		    			container.append(dateBox, tempBox, conditionsBox);
+		    			$('body').append(container);
+		    			/*$('body').append(dateBox);
+		    			$('body').append(TempBox);
+		    			$('body').append(conditionsBox);*/
+		    		});
 		    	}
 		    });
 		});				
